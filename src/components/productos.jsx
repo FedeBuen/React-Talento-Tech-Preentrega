@@ -1,22 +1,5 @@
-import { useEffect, useState } from "react";
 
-const Productos = () => {
-    const [productos, setProductos] = useState([]);
-    const [cargando, setCargando] = useState(true);
-    const [error, setError] = useState(null);
-
-    const URL = 'https://fakestoreapi.com/products';
-
-    useEffect(() => {
-        fetch(URL)
-            .then((respuesta) => respuesta.json())
-            .then((datos) => setProductos(datos))
-            .catch((error) => setError('Error al cargar productos'))
-            .finally(() => setCargando(false))
-    }, []);
-
-    if (cargando) return 'Cargando productos...';
-    if (error) return error;
+const Productos = ({ productos, agregarAlCarrito }) => {
 
     return (
         <>
@@ -40,7 +23,7 @@ const Productos = () => {
                             <div className="card-body d-flex flex-column">
                                 <hr className="my-2" />
                                 <p className="card-text fw-bold text-start mt-auto">Precio: ${producto.price}</p>
-                                <button className="btn btn-primary mt-2">Agregar al carrito</button>
+                                <button className="btn btn-primary mt-2" onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
                             </div>
                         </div>
                     </div>
